@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <sceneName>Game</sceneName>
+  <mobs>
+    <MobData Name="NoName">
+      <Health>10</Health>
+      <PosX>2.94533968</PosX>
+      <PosY>1.00000024</PosY>
+      <PosZ>-2.236535</PosZ>
+      <RotY>13.5846081</RotY>
+      <CurrentState>
+        <state>Attack</state>
+      </CurrentState>
+    </MobData>
+    <MobData Name="Fat">
+      <Health>10</Health>
+      <PosX>-2</PosX>
+      <PosY>1</PosY>
+      <PosZ>2</PosZ>
+      <RotY>119.267342</RotY>
+      <CurrentState>
+        <state>Idle</state>
+      </CurrentState>
+    </MobData>
+    <MobData Name="Killer">
+      <Health>0</Health>
+      <PosX>3.74553776</PosX>
+      <PosY>1.34900415</PosY>
+      <PosZ>3.79780269</PosZ>
+      <RotY>125.554672</RotY>
+      <CurrentState>
+        <state>Jump</state>
+      </CurrentState>
+    </MobData>
+  </mobs>
+</GameData>
