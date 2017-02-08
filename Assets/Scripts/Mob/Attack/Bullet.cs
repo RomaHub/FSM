@@ -3,7 +3,7 @@
 public class Bullet : MonoBehaviour
 {
 
-    public int damage = 5;
+    public int damage = 1;
     public float lifeTime = 4f;
 
     void OnEnable()

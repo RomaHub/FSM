@@ -35,8 +35,8 @@ public class AttackState : IMobState
 
         if (Time.time > _timer)
         {
-            _timer = Time.time + _mob.fireRate;
-            _mob.Attack();
+            _timer = Time.time + _mob.Attack.FireRate;
+            _mob.Shoot();
         }
 
     }

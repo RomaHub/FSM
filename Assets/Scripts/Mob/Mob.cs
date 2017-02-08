@@ -2,15 +2,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Mob : Unit, IDamageable, IAttackable, IDragHandler, IPointerClickHandler
+public class Mob : Unit, IDamageable, IDragHandler, IPointerClickHandler
 {
     [Header("Stats")]
     public string mobName;
     public float stayInState = 4f;
     public float rotateSpeed = 20f;
     public float jumpStrength = 2f;
-    public float fireRate = 1f;
-    public int bullets = 10;
     public bool isGrounded;
 
     [Header("Assign")]
@@ -34,6 +32,8 @@ public class Mob : Unit, IDamageable, IAttackable, IDragHandler, IPointerClickHa
     private int _health;
 
     #region Properties
+
+    public IAttackable Attack { get; set; }
 
     public IMobState CurrentState { get; set; }
     public IMobState IdleState { get; private set; }
@@ -71,6 +71,8 @@ public class Mob : Unit, IDamageable, IAttackable, IDragHandler, IPointerClickHa
         mobColor = GetComponent<MeshRenderer>();
         rigidBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
+        Attack = new StandardAttack(this);
 
         Health = 10;
     }
@@ -149,6 +151,7 @@ public class Mob : Unit, IDamageable, IAttackable, IDragHandler, IPointerClickHa
     {
         Health -= damage;
         CurrentState = (CurrentState == AttackState) ? JumpState : AttackState;
+        Attack = new AdvancedAttack(this);
     }
 
     public void Death()
@@ -170,29 +173,9 @@ public class Mob : Unit, IDamageable, IAttackable, IDragHandler, IPointerClickHa
 
     #region IAttackable
 
-    public void Attack()
+    public void Shoot()
     {
-        if (bullets > 0)
-        {
-            bullets--;
-
-			GameObject bullet = BulletPool.Instance.GetBullet();
-
-			bullet.transform.position = gunBarrel.position;
-			bullet.transform.rotation = gunBarrel.rotation;
-			bullet.SetActive(true);
-
-			Rigidbody rb = bullet.GetComponent<Rigidbody>();
-			rb.WakeUp();
-			rb.AddForce(transform.forward * 300f);
-
-        }
-        else
-        {
-            CurrentState = IdleState;
-            bullets = 20;
-        }
-
+        Attack.Shoot();
     }
 
     #endregion
@@ -211,6 +194,7 @@ public class Mob : Unit, IDamageable, IAttackable, IDragHandler, IPointerClickHa
     public void OnPointerClick(PointerEventData eventData)
     {
         CurrentState = (CurrentState == AttackState) ? IdleState : JumpState;
+        Attack = new StandardAttack(this);
     }
 
     #endregion
